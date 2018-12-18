@@ -1,5 +1,5 @@
 server:
-  port: 8383
+  port: 8585
 
 guns:
   swagger-open: true              #是否开启swagger (true/false)
@@ -61,19 +61,20 @@ guns:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/zkhc_server_admin?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
-    username: root
+    url: jdbc:mysql://172.16.110.238:548/zkhc_server_admin?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    username: zkhc_root_admin
     db-name: zkhc_server_admin
-    password: 123456
+    password: wasLY,.18zkhc
     filters: wall,mergeStat
 ---
 
 spring:
   profiles: test
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
-    username: root
-    password: root
+    url: jdbc:mysql://172.16.110.238:548/zkhc_server_admin?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    username: zkhc_root_admin
+    db-name: zkhc_server_admin
+    password: wasLY,.18zkhc
     filters: wall,mergeStat
 
 ---
@@ -81,8 +82,9 @@ spring:
 spring:
   profiles: produce
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
-    username: root
-    password: root
+    url: jdbc:mysql://172.16.110.238:548/zkhc_server_admin?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    username: zkhc_root_admin
+    db-name: zkhc_server_admin
+    password: wasLY,.18zkhc
     filters: wall,mergeStat
 
