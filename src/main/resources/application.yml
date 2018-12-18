@@ -1,5 +1,5 @@
 server:
-  port: 8585
+  port: 8383
 
 guns:
   swagger-open: true              #是否开启swagger (true/false)
