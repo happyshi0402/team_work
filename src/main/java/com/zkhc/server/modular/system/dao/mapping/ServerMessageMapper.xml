@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkhc.server.modular.system.dao.ServerMessageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zkhc.server.modular.system.model.ServerMessage">
+        <id column="id" property="id" />
+        <result column="server_host" property="serverHost" />
+        <result column="server_port" property="serverPort" />
+        <result column="server_user" property="serverUser" />
+        <result column="server_password" property="serverPassword" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, server_host, server_port, server_user, server_password
+    </sql>
+
+    <select id="list" resultType="map">
+        select id,
+        a.server_host as serverHost,
+        a.server_port as serverPort,
+        a.server_user as serverUser,
+        a.server_password as serverPassword
+        from zkhc_server_message a
+        WHERE
+        1=1
+        <if test="condition != null and condition !=''">
+            and (a.server_host like CONCAT('%',#{condition},'%')
+            or a.server_port like CONCAT('%',#{condition},'%'))
+        </if>
+    </select>
+</mapper>

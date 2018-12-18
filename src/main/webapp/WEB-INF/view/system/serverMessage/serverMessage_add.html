@@ -1,0 +1,32 @@
+@layout("/common/_container.html"){
+<style>
+    .control-label, span {
+        line-height: 35px;
+    }
+    .content .form-control-feedback{
+        top:15%!important;
+    }
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal" id="addServer">
+
+            <div class="row">
+                <#input_sm id="serverHost" name="服务器地址" require="true"/>
+                <#input_sm id="serverPort" name="服务器端口" require="true"/>
+                <#input_sm id="serverUser" name="服务器账号" require="true"/>
+                <#input_sm id="serverPassword" name="服务器密码" require="true"/>
+                <!--<#input_sm id="reServerPassword" name="确认密码" require="true"/>-->
+            </div>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ServerMessageInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ServerMessageInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/serverMessage/serverMessage_info.js"></script>
+@}

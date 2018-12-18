@@ -1,0 +1,38 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>服务器管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="condition" name="名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="ServerInfo.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="ServerInfoTableToolbar" role="group">
+                            @if(shiro.hasPermission("/serverInfo/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="ServerInfo.openAddServerInfo()"/>
+                            @}
+                            @if(shiro.hasPermission("/serverInfo/delete")){
+                                <#button name="删除" icon="fa-remove" clickFun="ServerInfo.deleteSelect()" space="true"/>
+                            @}
+                            <!--<#button name="连通测试" icon="fa-connectdevelop" clickFun="ServerInfo.connectTest()" space="true"/>-->
+                            <#button name="开启代理" icon="fa-chain" clickFun="ServerInfo.openSelect()" space="true"/>
+                            <#button name="关闭代理" icon="fa-chain-broken" clickFun="ServerInfo.downSelect()" space="true"/>
+                        </div>
+                        <#table id="ServerInfoTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/serverInfo/serverInfo.js"></script>
+@}
