@@ -189,17 +189,19 @@ ServerInfo.downSelect = function () {
  */
 ServerInfo.open=function(row){
     Feng.confirm("是否开启代理？",function(){
-        /*var ajax = new $ax(Feng.ctxPath + "/opinion/delete", function (data) {
-            Feng.success("删除成功!");
+        var ajax = new $ax(Feng.ctxPath + "/serverInfo/open", function (data) {
+            console.log("开启代理返回的数据：", data);
+            Feng.success("开启成功!");
             Opinion.table.refresh();
         }, function (data) {
-            Feng.error("删除失败!" + data.responseJSON.message + "!");
+            Feng.error("开启失败!" + data.responseJSON.message + "!");
         });
-        ajax.set("id",row.id);
-        ajax.start();*/
+        row = _.omit(row, "createTime", "updateTime");
+        ajax.set(row);
+        ajax.start();
         Feng.info("开启成功!");
     });
-}
+};
 /**
  * 关闭代理
  */
@@ -215,7 +217,7 @@ ServerInfo.down=function(row){
         ajax.start();*/
         Feng.info("关闭成功!");
     });
-}
+};
 /**
  * 查询服务器管理列表
  */

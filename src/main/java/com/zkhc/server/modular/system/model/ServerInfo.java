@@ -188,6 +188,17 @@ public class ServerInfo extends Model<ServerInfo> {
         return type;
     }
 
+    public String getPortType() {
+        if(protocol == 1){
+            return "tcp";
+        }else if(protocol == 2){
+            return "udp";
+        }else if(protocol == 3){
+            return "http";
+        }
+        return "https";
+    }
+
     public void setType(Integer type) {
         this.type = type;
     }

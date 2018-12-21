@@ -1,12 +1,17 @@
 package com.zkhc.server.modular.system.controller;
 
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import com.alibaba.fastjson.JSONObject;
 import com.zkhc.server.core.common.annotion.BussinessLog;
 import com.zkhc.server.core.common.constant.dictmap.ServerInfoDict;
 import com.zkhc.server.core.log.LogObjectHolder;
 import com.zkhc.server.core.util.UUIDUtil;
 import com.zkhc.server.modular.system.model.ServerInfo;
+import com.zkhc.server.modular.system.model.ServerMessage;
 import com.zkhc.server.modular.system.service.IServerInfoService;
+import com.zkhc.server.modular.system.service.IServerMessageService;
+import com.zkhc.server.modular.system.utils.http_utils;
 import com.zkhc.server.modular.system.warpper.ServerInfoWarpper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +40,10 @@ public class ServerInfoController extends BaseController {
 
     @Autowired
     private IServerInfoService serverInfoService;
+
+    @Autowired
+    private IServerMessageService serverMessageService;
+
 
     /**
      * 跳转到服务器管理首页
@@ -74,6 +84,12 @@ public class ServerInfoController extends BaseController {
 
     /**
      * 新增服务器管理
+     *  type = request.form["type"]
+     port = request.form["port"]
+     task_name = request.form["task_name"]
+
+     ngrok_client = request.form["client"]
+     ngrok_client_user = request.form["client_user"]
      */
     @RequestMapping(value = "/add")
     @BussinessLog(value = "新增服务端口", key = "portName", dict = ServerInfoDict.class)
@@ -82,8 +98,22 @@ public class ServerInfoController extends BaseController {
         serverInfo.setId(UUIDUtil.getUUID());
         serverInfo.setCreateTime(new Date());
         serverInfo.setUpdateTime(new Date());
+
+
+        ServerMessage serverMessage = serverMessageService.selectById(serverInfo.getHostId());
+
+        Map<String, Object> ngrok_map = new HashMap<>();
+        ngrok_map.put("type", serverInfo.getPortType());
+        ngrok_map.put("port", serverInfo.getPort());
+        ngrok_map.put("task_name", serverInfo.getPortName());
+        ngrok_map.put("client", serverMessage.getServerHost());
+        ngrok_map.put("client_user", serverMessage.getServerUser());
+
+        JSONObject post_data = new JSONObject(ngrok_map);
+        SuccessResponseData srd = new http_utils().post("http://172.16.110.238:468/ngrok/set/client/", post_data);
+        serverInfo.setAliStatus(1);
         serverInfoService.insert(serverInfo);
-        return SUCCESS_TIP;
+        return srd;
     }
 
     /**
@@ -106,6 +136,27 @@ public class ServerInfoController extends BaseController {
     public Object update(ServerInfo serverInfo) {
         serverInfoService.updateById(serverInfo);
         return SUCCESS_TIP;
+    }
+
+    @RequestMapping(value = "/open")
+    @BussinessLog(value = "开启服务端口", key = "portName", dict = ServerInfoDict.class)
+    @ResponseBody
+    public Object open_port(ServerInfo serverInfo) {
+        serverInfo.setAliStatus(1);
+        serverInfo.setUpdateTime(new Date());
+        serverInfoService.updateById(serverInfo);
+
+        ServerMessage serverMessage = serverMessageService.selectById(serverInfo.getHostId());
+
+        Map<String, Object> ngrok_map = new HashMap<>();
+        ngrok_map.put("type", serverInfo.getPortType());
+        ngrok_map.put("port", serverInfo.getPort());
+        ngrok_map.put("task_name", serverInfo.getPortName());
+        ngrok_map.put("client", serverMessage.getServerHost());
+        ngrok_map.put("client_user", serverMessage.getServerUser());
+
+        JSONObject post_data = new JSONObject(ngrok_map);
+        return new http_utils().post("http://172.16.110.238:468/ngrok/set/client/", post_data);
     }
 
     /**
