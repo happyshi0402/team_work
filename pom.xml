@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>cn.stylefeng.guns</groupId>
-    <artifactId>guns</artifactId>
+    <artifactId>zkhc_ngrok_client_ui</artifactId>
     <version>1.0.0</version>
 
     <name>guns-admin</name>
