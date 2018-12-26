@@ -12,6 +12,8 @@
     <label class="col-sm-3 control-label">${name}</label>
     <div class="col-sm-9">
         <input class="form-control" id="${id}" name="${id}"
+               onpropertychange="${ oninput!}"
+               oninput="${ oninput!}"
                @if(isNotEmpty(value)){
                     value="${tool.dateType(value)}"
                @}

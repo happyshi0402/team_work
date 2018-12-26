@@ -19,17 +19,18 @@
                 <#select_sm id="hostId" name="服务器地址" require="true">
 
                 </#select_sm>
-                <#input_sm id="port" name="端口" require="true" value="${item.port}"/>
                 <#select_sm id="protocol" name="协议" require="true">
                     <option value="1">tcp</option>
                     <option value="2">udp</option>
                     <option value="3">http</option>
                 </#select_sm>
-                <#input_sm id="aliPort" name="阿里代理端口" require="true" value="${item.aliPort}"/>
-                <#input_sm id="ngrokPort" name="ngrok对应端口" require="true" value="${item.ngrokPort}"/>
+                <#input_sm id="port" name="端口" require="true" value="${item.port}" oninput="ServerInfoInfoDlg.portChange()"/>
+                <#input_sm id="aliPort" name="阿里代理端口" require="false" value="${item.aliPort}"/>
+                <#input_sm id="ngrokPort" name="ngrok对应端口" require="false" value="${item.ngrokPort}"/>
                 <#input_sm id="domainName" name="域名" require="true" value="${item.domainName}"/>
                 <#input_sm id="fireZone" name="区域" value="${item.fireZone}"/>
                 <#select_sm id="type" name="类型" require="true">
+                    <option value="0"></option>
                     <option value="1">mysql</option>
                     <option value="2">redis</option>
                     <option value="3">mongodb</option>
@@ -40,6 +41,7 @@
             <div class="row btn-group-m-t">
                 <div class="col-sm-10">
                     <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ServerInfoInfoDlg.editSubmit()"/>
+                    <#button btnCss="info" name="复制" id="ensure" icon="fa-check" clickFun="ServerInfoInfoDlg.addSubmit()"/>
                     <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ServerInfoInfoDlg.close()"/>
                 </div>
             </div>

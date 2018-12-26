@@ -1,10 +1,10 @@
 (function () {
-	var $ax = function (url, success, error) {
+	var $ax = function (url, success, error, async) {
 		this.url = url;
 		this.type = "post";
 		this.data = {};
 		this.dataType = "json";
-		this.async = false;
+		this.async = async==undefined? false: async;
 		this.success = success;
 		this.error = error;
 	};

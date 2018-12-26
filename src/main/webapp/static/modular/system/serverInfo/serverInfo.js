@@ -15,25 +15,34 @@ ServerInfo.initColumn = function () {
     return [
         {field: 'selectItem', checkbox: true},
             {title: '主键id', field: 'id', visible: false, align: 'center', valign: 'middle'},
-            {title: '端口名', field: 'portName', visible: true, align: 'center', valign: 'middle',width:'7%'},
-            {title: '服务器地址', field: 'host', visible: true, align: 'center', valign: 'middle',width:'7%'},
-            {title: '端口', field: 'port', visible: true, align: 'center', valign: 'middle'},
-            {title: '协议', field: 'protocolName', visible: true, align: 'center', valign: 'middle'},
-            {title: '阿里端口', field: 'aliPort', visible: true, align: 'center', valign: 'middle'},
-            {title: 'ngrok端口', field: 'ngrokPort', visible: true, align: 'center', valign: 'middle',width:'7%'},
-            {title: '状态', field: 'aliStatusName', visible: true, align: 'center', valign: 'middle'},
-            {title: '访问状态', field: 'fireStatusName', visible: true, align: 'center', valign: 'middle'},
-            {title: '域名', field: 'domainName', visible: true, align: 'center', valign: 'middle',width:'18%',},
-            {title: '区域 ', field: 'fireZone', visible: true, align: 'center', valign: 'middle'},
-            {title: '类型', field: 'typeName', visible: true, align: 'center', valign: 'middle'},
-            {title: '备注', field: 'remark', visible: true, align: 'center', valign: 'middle'},
+            {title: '端口名', field: 'portName', sortable: true, align: 'center', valign: 'middle',width:'7%'},
+            {title: '服务器地址', field: 'host', sortable: true, align: 'center', valign: 'middle',width:'7%'},
+            {title: '端口', field: 'port', sortable: true, align: 'center', valign: 'middle'},
+            {title: '协议', field: 'protocolName', visible: false, align: 'center', valign: 'middle'},
+            {title: '阿里端口', field: 'aliPort', visible: false, align: 'center', valign: 'middle'},
+            {title: 'ngrok端口', field: 'ngrokPort', visible: false, align: 'center', valign: 'middle',width:'7%'},
+            {title: '状态', field: 'aliStatusName', sortable: true, align: 'center', valign: 'middle'},
+            {title: '访问状态', field: 'fireStatusName', visible: false, align: 'center', valign: 'middle'},
+            {title: '域名', field: 'domainName', sortable: true, align: 'center',
+                formatter: function (value, row, index) {
+                    if(row.protocolName == "http"){
+                        var href=row.protocolName + "://" + row.portName + "." + value;
+                        return "<a target='_blank' href=\""+href+"\">"+href+"</a>";
+                    }else{
+                        var href=row.protocolName + "://" + value;
+                        return href;
+                    }
+                },
+                valign: 'middle',width:'18%',},
+            {title: '区域 ', field: 'fireZone', visible: false, align: 'center', valign: 'middle'},
+            {title: '类型', field: 'typeName', sortable: true, align: 'center', valign: 'middle'},
+            {title: '备注', field: 'remark', sortable: true, align: 'center', valign: 'middle'},
             {title: '创建时间', field: 'createTime', visible: false, align: 'center', valign: 'middle'},
-            {title: '更新时间', field: 'updateTime', visible: false, align: 'center', valign: 'middle'},
-        {title: '操作', field: 'action', visible: true, align: 'center', valign: 'middle',width:'22%',
+            {title: '更新时间', field: 'updateTime', sortable: true, align: 'center', valign: 'middle'},
+        {title: '操作', field: 'action', align: 'center', valign: 'middle',width:'22%',
             formatter: function (value, row, index) {
                     return "<span>" +
                         "<div class=\"btn btn-default btn-sm edit\">修改</div>\n" +
-                        "<div class=\"btn btn-default btn-sm delete\">删除</div>\n" +
                         "<div class=\"btn btn-default btn-sm con\">连通测试</div>\n" +
                         "<div class=\"btn btn-default btn-sm open\">开启代理</div>\n" +
                         "<div class=\"btn btn-default btn-sm down\">关闭代理</div>" +
@@ -48,20 +57,18 @@ action_event = {
     "click .edit": function (e, value, row) {
         ServerInfo.openServerInfoDetail(row);
     },
-
-    "click .delete": function (e, value, row) {
-        ServerInfo.delete(row);
-    },
     "click .con": function (e, value, row) {
         if(row.protocolName=="http"){
             ServerInfo.httpConnectTest(row);
+        }else{
+            Feng.info("请采用特殊方式"+row.typeName+"测试");
         }
     },
     "click .open": function (e, value, row) {
-        ServerInfo.open(row);
+        ServerInfo.action(row, "start");
     },
     "click .down": function (e, value, row) {
-        ServerInfo.down(row);
+        ServerInfo.action(row, "close");
     },
 };
 
@@ -127,16 +134,18 @@ ServerInfo.deleteSelect = function () {
  * 删除服务器管理
  */
 ServerInfo.delete = function (row) {
-    //if (this.check()) {
-        var ajax = new $ax(Feng.ctxPath + "/serverInfo/delete", function (data) {
-            Feng.success("删除成功!");
-            ServerInfo.table.refresh();
-        }, function (data) {
-            Feng.error("删除失败!" + data.responseJSON.message + "!");
-        });
-        ajax.set("serverInfoId",row.id);
-        ajax.start();
-   // }
+    Feng.confirm("确定要删除"+row.port+"？",function() {
+        if (this.check()) {
+            var ajax = new $ax(Feng.ctxPath + "/serverInfo/delete", function (data) {
+                Feng.success("删除成功!");
+                ServerInfo.table.refresh();
+            }, function (data) {
+                Feng.error("删除失败!" + data.responseJSON.message + "!");
+            }, true);
+            ajax.set("serverInfoId", row.id);
+            ajax.start();
+        }
+    });
 };
 
 ServerInfo.connectTest=function(){
@@ -152,10 +161,10 @@ ServerInfo.httpConnectTest=function(row){
     var ajax = new $ax(Feng.ctxPath + "/httpConnect/httpConnectTest", function (data) {
         console.info(data.description);
         console.info(data.status);
-        toastr.info(data.description,data.status);
+        toastr.info(data.description.substr(0, 100),data.status);
     }, function (data) {
         Feng.error("失败!");
-    });
+    }, true);
     ajax.set("urlStr","http://"+row.portName+"."+row.domainName+"");
     ajax.start();
 }
@@ -167,7 +176,7 @@ ServerInfo.openSelect = function () {
     var d_list = ServerInfo.table.btInstance.bootstrapTable('getSelections');
     for(var i in d_list) {
         var row = d_list[i];
-        ServerInfo.open(row);
+        ServerInfo.action(row, "start");
     }
 
 };
@@ -179,43 +188,27 @@ ServerInfo.downSelect = function () {
     var d_list = ServerInfo.table.btInstance.bootstrapTable('getSelections');
     for(var i in d_list) {
         var row = d_list[i];
-        ServerInfo.down(row);
+        ServerInfo.action(row, "close");
     }
 
 };
 
 /**
- * 开启代理
+ * 代理操作，开启和关闭
  */
-ServerInfo.open=function(row){
-    Feng.confirm("是否开启代理？",function(){
-        var ajax = new $ax(Feng.ctxPath + "/serverInfo/open", function (data) {
-            console.log("开启代理返回的数据：", data);
-            Feng.success("开启成功!");
+ServerInfo.action=function(row, action){
+    Feng.confirm("确定执行此操作："+action+"？",function(){
+        var ajax = new $ax(Feng.ctxPath + "/serverInfo/action", function (data) {
+            console.log("操作代理返回的数据：", data);
+            Feng.success("操作成功!");
             Opinion.table.refresh();
         }, function (data) {
-            Feng.error("开启失败!" + data.responseJSON.message + "!");
-        });
+            Feng.error("操作失败!" + data.responseJSON.message + "!");
+        }, true);
         row = _.omit(row, "createTime", "updateTime");
+        row.action = action;
         ajax.set(row);
         ajax.start();
-        Feng.info("开启成功!");
-    });
-};
-/**
- * 关闭代理
- */
-ServerInfo.down=function(row){
-    Feng.confirm("是否关闭代理？",function(){
-        /*var ajax = new $ax(Feng.ctxPath + "/opinion/delete", function (data) {
-            Feng.success("删除成功!");
-            Opinion.table.refresh();
-        }, function (data) {
-            Feng.error("删除失败!" + data.responseJSON.message + "!");
-        });
-        ajax.set("id",row.id);
-        ajax.start();*/
-        Feng.info("关闭成功!");
     });
 };
 /**

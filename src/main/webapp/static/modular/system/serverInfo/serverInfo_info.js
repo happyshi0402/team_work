@@ -25,20 +25,6 @@ var ServerInfoInfoDlg = {
                 }
             }
         },
-        aliPort: {
-            validators: {
-                notEmpty: {
-                    message: '阿里代理端口不能为空'
-                }
-            }
-        },
-        ngrokPort: {
-            validators: {
-                notEmpty: {
-                    message: 'ngrok对应端口不能为空'
-                }
-            }
-        },
         domainName: {
             validators: {
                 notEmpty: {
@@ -66,7 +52,14 @@ ServerInfoInfoDlg.set = function(key, val) {
     this.serverInfoInfoData[key] = (typeof val == "undefined") ? $("#" + key).val() : val;
     return this;
 }
-
+ServerInfoInfoDlg.portChange = function () {
+    var port = $("#port").val();
+    var protocol = $("#protocol").val();
+    if(protocol != "3") {
+        $("#aliPort").val(10000 + parseInt(port) - 500);
+        $("#ngrokPort").val(6000 + parseInt(port));
+    }
+};
 /**
  * 设置对话框中的数据
  *

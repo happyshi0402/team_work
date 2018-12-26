@@ -13,6 +13,8 @@
     <div class="col-xs-7">
         <input class="form-control" id="${id}" name="${id}"
                placeholder="${placeholder!}"
+               onpropertychange="${ oninput!}"
+               oninput="${ oninput!}"
                @if(isNotEmpty(value)){
                     value="${tool.dateType(value)}"
                @}

@@ -108,9 +108,11 @@ public class ServerInfoController extends BaseController {
         ngrok_map.put("task_name", serverInfo.getPortName());
         ngrok_map.put("client", serverMessage.getServerHost());
         ngrok_map.put("client_user", serverMessage.getServerUser());
+        ngrok_map.put("action", "start");
 
         JSONObject post_data = new JSONObject(ngrok_map);
         SuccessResponseData srd = new http_utils().post("http://172.16.110.238:468/ngrok/set/client/", post_data);
+
         serverInfo.setAliStatus(1);
         serverInfoService.insert(serverInfo);
         return srd;
@@ -123,6 +125,21 @@ public class ServerInfoController extends BaseController {
     @BussinessLog(value = "删除服务端口", key = "serverInfoId", dict = ServerInfoDict.class)
     @ResponseBody
     public Object delete(@RequestParam String serverInfoId) {
+
+        ServerInfo serverInfo = serverInfoService.selectById(serverInfoId);
+        ServerMessage serverMessage = serverMessageService.selectById(serverInfo.getHostId());
+
+        Map<String, Object> ngrok_map = new HashMap<>();
+        ngrok_map.put("type", serverInfo.getPortType());
+        ngrok_map.put("port", serverInfo.getPort());
+        ngrok_map.put("task_name", serverInfo.getPortName());
+        ngrok_map.put("client", serverMessage.getServerHost());
+        ngrok_map.put("client_user", serverMessage.getServerUser());
+        ngrok_map.put("action", "close");
+
+        JSONObject post_data = new JSONObject(ngrok_map);
+        SuccessResponseData srd = new http_utils().post("http://172.16.110.238:468/ngrok/set/client/", post_data);
+
         serverInfoService.deleteById(serverInfoId);
         return SUCCESS_TIP;
     }
@@ -138,11 +155,15 @@ public class ServerInfoController extends BaseController {
         return SUCCESS_TIP;
     }
 
-    @RequestMapping(value = "/open")
+    @RequestMapping(value = "/action")
     @BussinessLog(value = "开启服务端口", key = "portName", dict = ServerInfoDict.class)
     @ResponseBody
-    public Object open_port(ServerInfo serverInfo) {
-        serverInfo.setAliStatus(1);
+    public Object open_port(ServerInfo serverInfo, String action) {
+        if(action == "start") {
+            serverInfo.setAliStatus(1);
+        }else{
+            serverInfo.setAliStatus(2);
+        }
         serverInfo.setUpdateTime(new Date());
         serverInfoService.updateById(serverInfo);
 
@@ -154,6 +175,7 @@ public class ServerInfoController extends BaseController {
         ngrok_map.put("task_name", serverInfo.getPortName());
         ngrok_map.put("client", serverMessage.getServerHost());
         ngrok_map.put("client_user", serverMessage.getServerUser());
+        ngrok_map.put("action", action);
 
         JSONObject post_data = new JSONObject(ngrok_map);
         return new http_utils().post("http://172.16.110.238:468/ngrok/set/client/", post_data);
