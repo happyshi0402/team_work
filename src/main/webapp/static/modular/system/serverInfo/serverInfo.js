@@ -19,7 +19,7 @@ ServerInfo.initColumn = function () {
             {title: '服务器地址', field: 'host', sortable: true, align: 'center', valign: 'middle',width:'7%'},
             {title: '端口', field: 'port', sortable: true, align: 'center', valign: 'middle'},
             {title: '协议', field: 'protocolName', visible: false, align: 'center', valign: 'middle'},
-            {title: '阿里端口', field: 'aliPort', visible: false, align: 'center', valign: 'middle'},
+            {title: '访问端口', field: 'aliPort', sortable: true, align: 'center', valign: 'middle'},
             {title: 'ngrok端口', field: 'ngrokPort', visible: false, align: 'center', valign: 'middle',width:'7%'},
             {title: '状态', field: 'aliStatusName', sortable: true, align: 'center', valign: 'middle'},
             {title: '访问状态', field: 'fireStatusName', visible: false, align: 'center', valign: 'middle'},
