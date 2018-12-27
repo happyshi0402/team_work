@@ -159,7 +159,7 @@ public class ServerInfoController extends BaseController {
     @BussinessLog(value = "开启服务端口", key = "portName", dict = ServerInfoDict.class)
     @ResponseBody
     public Object open_port(ServerInfo serverInfo, String action) {
-        if(action == "start") {
+        if(action.equals("start")) {
             serverInfo.setAliStatus(1);
         }else{
             serverInfo.setAliStatus(2);

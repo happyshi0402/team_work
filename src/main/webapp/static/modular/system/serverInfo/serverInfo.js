@@ -18,7 +18,7 @@ ServerInfo.initColumn = function () {
             {title: '端口名', field: 'portName', sortable: true, align: 'center', valign: 'middle',width:'7%'},
             {title: '服务器地址', field: 'host', sortable: true, align: 'center', valign: 'middle',width:'7%'},
             {title: '端口', field: 'port', sortable: true, align: 'center', valign: 'middle'},
-            {title: '协议', field: 'protocolName', visible: false, align: 'center', valign: 'middle'},
+            {title: '协议', field: 'protocolName', sortable: true, align: 'center', valign: 'middle'},
             {title: '访问端口', field: 'aliPort', sortable: true,
                 formatter: function (value, row, index) {
                     if(row.protocolName == "http"){
