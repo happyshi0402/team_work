@@ -46,8 +46,8 @@ ServerInfo.initColumn = function () {
             {title: '区域 ', field: 'fireZone', visible: false, align: 'center', valign: 'middle'},
             {title: '类型', field: 'typeName', sortable: true, align: 'center', valign: 'middle'},
             {title: '备注', field: 'remark', sortable: true, align: 'center', valign: 'middle'},
-            {title: '创建时间', field: 'createTime', visible: false, align: 'center', valign: 'middle'},
-            {title: '更新时间', field: 'updateTime', sortable: true, align: 'center', valign: 'middle'},
+            {title: '创建时间', field: 'createTime', sortable: true, align: 'center', valign: 'middle'},
+            {title: '更新时间', field: 'updateTime', visible: false, align: 'center', valign: 'middle'},
         {title: '操作', field: 'action', align: 'center', valign: 'middle',width:'22%',
             formatter: function (value, row, index) {
                     return "<span>" +
@@ -233,5 +233,8 @@ $(function () {
     var defaultColunms = ServerInfo.initColumn();
     var table = new BSTable(ServerInfo.id, "/serverInfo/list", defaultColunms);
     table.setPaginationType("client");
+    table.options["sortName"] = "createTime";
+    table.options["sortOrder"] = "desc";
     ServerInfo.table = table.init();
+
 });
