@@ -60,9 +60,13 @@ ServerInfo.initColumn = function () {
                 if (row.aliStatus == 2) {
                     status = "<div class=\"open fa fa-toggle-off fa-2x text-muted\"></div>\n";
                 }
+                var test_c = "text-muted";
+                if (row.protocolName == "http") {
+                    test_c = "con text-info";
+                }
                 return "<span>" +
                     "<div class=\"edit fa fa-pencil-square-o fa-2x text-info\" aria-placeholder='修改'></div>\n" +
-                    "<div class=\"con fa fa-bolt fa-2x text-info\" aria-placeholder='连通测试'></div>\n" +
+                    "<div class=\"fa fa-bolt fa-2x "+test_c+"\" aria-placeholder='连通测试'></div>\n" +
                     status +
                     "</span>"
             }, events: "action_event"
@@ -76,6 +80,7 @@ action_event = {
         ServerInfo.openServerInfoDetail(row);
     },
     "click .con": function (e, value, row) {
+        Feng.info("start test " + row.port + "!")
         if (row.protocolName == "http") {
             ServerInfo.httpConnectTest(row);
         } else {
@@ -179,9 +184,9 @@ ServerInfo.httpConnectTest = function (row) {
     var ajax = new $ax(Feng.ctxPath + "/httpConnect/httpConnectTest", function (data) {
         console.info(data.description);
         console.info(data.status);
-        toastr.info(data.description.substr(0, 100), data.status);
+        toastr.info(row.port+ " " + row.portName +" : "+ data.description.substr(0, 100), data.status);
     }, function (data) {
-        Feng.error("失败!");
+        Feng.error(row.port+"联通测试失败!");
     }, true);
     ajax.set("urlStr", "http://" + row.portName + "." + row.domainName + "");
     ajax.start();
