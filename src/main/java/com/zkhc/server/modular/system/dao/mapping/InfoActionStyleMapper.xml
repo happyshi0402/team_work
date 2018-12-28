@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkhc.server.modular.system.dao.InfoActionStyleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zkhc.server.modular.system.model.InfoActionStyle">
+        <id column="id" property="id" />
+        <result column="type_name" property="typeName" />
+        <result column="unique_attr" property="uniqueAttr" />
+        <result column="show_title" property="showTitle" />
+        <result column="show_con" property="showCon" />
+        <result column="show_plist" property="showPlist" />
+        <result column="remark" property="remark" />
+        <result column="add_time" property="addTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, type_name, unique_attr, show_title, show_con, show_plist, remark, add_time, update_time
+    </sql>
+
+</mapper>
