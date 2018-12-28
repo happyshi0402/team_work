@@ -16,14 +16,42 @@ WebhookInfo.initColumn = function () {
         {field: 'selectItem', radio: true},
             {title: '编号', field: 'id', visible: true, align: 'center', valign: 'middle'},
             {title: '消息类别', field: 'typeName', visible: true, align: 'center', valign: 'middle'},
-            {title: '消息内容', field: 'content', visible: true, align: 'center', valign: 'middle'},
-            {title: '', field: 'addTime', visible: true, align: 'center', valign: 'middle'},
+            {title: '消息内容', field: 'content', visible: true, align: 'center',  events: "action_event",
+                formatter: function (value, row, index) {
+                    var link = "<a tabindex=\"0\" role=\"button\" class='info_con show_detail'>"+value+"</a>";
+                    return link;
+                },
+                valign: 'middle'},
+            {title: '添加时间', field: 'addTime', visible: true, align: 'center', valign: 'middle'},
             {title: '状态：1.未发出  2.已发出 3.失败 ', field: 'status', visible: true, align: 'center', valign: 'middle'},
             {title: '查看次数', field: 'count', visible: true, align: 'center', valign: 'middle'},
-            {title: '备注', field: 'remark', visible: true, align: 'center', valign: 'middle'}
+            {title: '备注', field: 'remark', visible: true, align: 'center', valign: 'middle'},
+            {title: '操作', field: 'action', visible: true, align: 'center', valign: 'middle',
+                formatter: function (value, row, index) {
+                    var link = "<a target='_blank' href='/webhookInfo/detail/" + row.id  + "'>详情</a>";
+                    var link = "<sapn class='detail' '>详情</sapn>";
+                    link = "<a href='/webhookInfo/detail/" + row.id  + "'>详情</a>";
+                    return link;
+                },
+                events: "action_event"}
     ];
 };
 
+action_event = {
+    "click .show_detail": function (e, value, row) {
+        var content = row.content;
+        var typeName = row.typeName;
+        var remark = row.remark;
+        $("#info_detail").modal("show");
+        $("#info_detail_title").text(typeName + " : " + remark);
+        var result = JSON.stringify(JSON.parse(content), null, 4);
+        $("#info_detail_con").text(result);
+        //WebhookInfo.openWebhookInfoDetail(row);
+    },
+    "click .detail": function (e, value, row) {
+        WebhookInfo.openWebhookInfoDetail(row);
+    },
+}
 /**
  * 检查是否选中
  */
@@ -56,18 +84,18 @@ WebhookInfo.openAddWebhookInfo = function () {
 /**
  * 打开查看队列消息详情
  */
-WebhookInfo.openWebhookInfoDetail = function () {
-    if (this.check()) {
+WebhookInfo.openWebhookInfoDetail = function (row) {
+    //if (this.check()) {
         var index = layer.open({
             type: 2,
             title: '队列消息详情',
-            area: ['800px', '420px'], //宽高
+            area: ['800px', '710px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/webhookInfo/webhookInfo_update/' + WebhookInfo.seItem.id
+            content: Feng.ctxPath + '/webhookInfo/detail/' + row.id
         });
         this.layerIndex = index;
-    }
+    //}
 };
 
 /**
@@ -99,5 +127,7 @@ $(function () {
     var defaultColunms = WebhookInfo.initColumn();
     var table = new BSTable(WebhookInfo.id, "/webhookInfo/list", defaultColunms);
     table.setPaginationType("client");
+    table.options["sortName"] = "addTime";
+    table.options["sortOrder"] = "desc";
     WebhookInfo.table = table.init();
 });

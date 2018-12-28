@@ -96,9 +96,18 @@ public class WebhookInfoController extends BaseController {
     /**
      * 队列消息详情
      */
-    @RequestMapping(value = "/detail/{webhookInfoId}")
+    @RequestMapping(value = "/detail/data/{webhookInfoId}")
     @ResponseBody
-    public Object detail(@PathVariable("webhookInfoId") Integer webhookInfoId) {
+    public Object detail_data(@PathVariable("webhookInfoId") Integer webhookInfoId) {
         return webhookInfoService.selectById(webhookInfoId);
+    }
+
+    /**
+     * 队列消息详情
+     */
+    @RequestMapping(value = "/detail/{webhookInfoId}")
+    public Object detail_page(@PathVariable("webhookInfoId") Integer webhookInfoId, Model model) {
+        model.addAttribute("webhookInfoId",webhookInfoId);
+        return PREFIX + "webhookInfo_detail.html";
     }
 }
