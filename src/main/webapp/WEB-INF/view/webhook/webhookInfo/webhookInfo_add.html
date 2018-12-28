@@ -1,0 +1,32 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="编号" underline="true"/>
+                            <#input id="typeName" name="消息类别" underline="true"/>
+                            <#input id="content" name="消息内容" underline="true"/>
+                            <#input id="addTime" name=""/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="status" name="状态：1.未发出  2.已发出 3.失败 " underline="true"/>
+                            <#input id="count" name="查看次数" underline="true"/>
+                            <#input id="remark" name="备注" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="WebhookInfoInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="WebhookInfoInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/webhook/webhookInfo/webhookInfo_info.js"></script>
+@}
