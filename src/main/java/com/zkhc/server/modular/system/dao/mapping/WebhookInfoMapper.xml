@@ -11,11 +11,12 @@
         <result column="status" property="status" />
         <result column="count" property="count" />
         <result column="remark" property="remark" />
+        <result column="push_message" property="pushMessage" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, type_name, content, add_time, status, count, remark
+        id, type_name, content, add_time, status, count, remark, push_message
     </sql>
 
 </mapper>

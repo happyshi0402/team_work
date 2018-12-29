@@ -49,6 +49,10 @@ public class WebhookInfo extends Model<WebhookInfo> {
      * 备注
      */
     private String remark;
+    /**
+     * 推送的消息内容
+     */
+    private String pushMessage;
 
 
     public Long getId() {
@@ -105,6 +109,14 @@ public class WebhookInfo extends Model<WebhookInfo> {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getPushMessage() {
+        return pushMessage;
+    }
+
+    public void setPushMessage(String pushMessage) {
+        this.pushMessage = pushMessage;
     }
 
     @Override
