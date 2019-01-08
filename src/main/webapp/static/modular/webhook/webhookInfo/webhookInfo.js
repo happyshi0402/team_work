@@ -14,18 +14,27 @@ var WebhookInfo = {
 WebhookInfo.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            {title: '编号', field: 'id', visible: true, align: 'center', valign: 'middle'},
-            {title: '消息类别', field: 'typeName', visible: true, align: 'center', valign: 'middle'},
+            {title: '编号', field: 'id', sortable: true, align: 'center', valign: 'middle'},
+            {title: '消息类别', field: 'typeName', sortable: true, align: 'center', valign: 'middle'},
             {title: '消息内容', field: 'content', visible: true, align: 'center',  events: "action_event",
                 formatter: function (value, row, index) {
                     var link = "<a tabindex=\"0\" role=\"button\" class='info_con show_detail'>"+value+"</a>";
                     return link;
                 },
                 valign: 'middle'},
-            {title: '添加时间', field: 'addTime', visible: true, align: 'center', valign: 'middle'},
-            {title: '状态：1.未发出  2.已发出 3.失败 ', field: 'status', visible: true, align: 'center', valign: 'middle'},
-            {title: '查看次数', field: 'count', visible: true, align: 'center', valign: 'middle'},
-            {title: '备注', field: 'remark', visible: true, align: 'center', valign: 'middle'},
+            {title: '消息提取', field: 'content', visible: true, align: 'center',  events: "action_event",
+                formatter: function (value, row, index) {
+                    var link = "<a tabindex=\"0\" role=\"button\" class='info_con show_detail'>"+value+"</a>";
+                    if(row.typeName == "gitlab"){
+                        return value.event_name + " : " + value.user_name;
+                    }
+                    return link;
+            },
+            valign: 'middle'},
+            {title: '添加时间', field: 'addTime', sortable: true, align: 'center', valign: 'middle'},
+            {title: '状态：1.未发出  2.已发出 3.失败 ', field: 'status', sortable: true, align: 'center', valign: 'middle'},
+            {title: '查看次数', field: 'count', sortable: true, align: 'center', valign: 'middle'},
+            {title: '备注', field: 'remark', sortable: true, align: 'center', valign: 'middle'},
             {title: '操作', field: 'action', visible: true, align: 'center', valign: 'middle',
                 formatter: function (value, row, index) {
                     var link = "<a target='_blank' href='/webhookInfo/detail/" + row.id  + "'>详情</a>";

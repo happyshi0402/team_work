@@ -107,6 +107,7 @@ public class ServerInfoController extends BaseController {
         ngrok_map.put("port", serverInfo.getPort());
         ngrok_map.put("task_name", serverInfo.getPortName());
         ngrok_map.put("client", serverMessage.getServerHost());
+        ngrok_map.put("client_port", serverMessage.getServerPort());
         ngrok_map.put("client_user", serverMessage.getServerUser());
         ngrok_map.put("action", "start");
 
@@ -134,6 +135,7 @@ public class ServerInfoController extends BaseController {
         ngrok_map.put("port", serverInfo.getPort());
         ngrok_map.put("task_name", serverInfo.getPortName());
         ngrok_map.put("client", serverMessage.getServerHost());
+        ngrok_map.put("client_port", serverMessage.getServerPort());
         ngrok_map.put("client_user", serverMessage.getServerUser());
         ngrok_map.put("action", "close");
 
@@ -174,6 +176,7 @@ public class ServerInfoController extends BaseController {
         ngrok_map.put("port", serverInfo.getPort());
         ngrok_map.put("task_name", serverInfo.getPortName());
         ngrok_map.put("client", serverMessage.getServerHost());
+        ngrok_map.put("client_port", serverMessage.getServerPort());
         ngrok_map.put("client_user", serverMessage.getServerUser());
         ngrok_map.put("action", action);
 
