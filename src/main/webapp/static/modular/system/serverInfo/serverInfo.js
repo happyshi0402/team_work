@@ -158,16 +158,14 @@ ServerInfo.deleteSelect = function () {
  */
 ServerInfo.delete = function (row) {
     Feng.confirm("确定要删除" + row.port + "？", function () {
-        if (this.check()) {
-            var ajax = new $ax(Feng.ctxPath + "/serverInfo/delete", function (data) {
-                Feng.success("删除成功!");
-                ServerInfo.table.refresh();
-            }, function (data) {
-                Feng.error("删除失败!" + data.responseJSON.message + "!");
-            }, true);
-            ajax.set("serverInfoId", row.id);
-            ajax.start();
-        }
+        var ajax = new $ax(Feng.ctxPath + "/serverInfo/delete", function (data) {
+            Feng.success("删除成功!");
+            ServerInfo.table.refresh();
+        }, function (data) {
+            Feng.error("删除失败!" + data.responseJSON.message + "!");
+        }, true);
+        ajax.set("serverInfoId", row.id);
+        ajax.start();
     });
 };
 
@@ -197,8 +195,10 @@ ServerInfo.httpConnectTest = function (row) {
  */
 ServerInfo.openSelect = function () {
     var d_list = ServerInfo.table.btInstance.bootstrapTable('getSelections');
+    console.log("d_list is:", d_list);
     for (var i in d_list) {
         var row = d_list[i];
+        console.log("per row:", row);
         ServerInfo.action(row, "start");
     }
 
@@ -220,19 +220,17 @@ ServerInfo.downSelect = function () {
  * 代理操作，开启和关闭
  */
 ServerInfo.action = function (row, action) {
-    Feng.confirm("确定执行此操作：" + action + "？", function () {
-        var ajax = new $ax(Feng.ctxPath + "/serverInfo/action", function (data) {
-            console.log("操作代理返回的数据：", data);
-            Feng.success("操作成功!");
-            ServerInfo.table.refresh();
-        }, function (data) {
-            Feng.error("操作失败!" + data.responseJSON.message + "!");
-        }, true);
-        row = _.omit(row, "createTime", "updateTime");
-        row.action = action;
-        ajax.set(row);
-        ajax.start();
-    });
+    var ajax = new $ax(Feng.ctxPath + "/serverInfo/action", function (data) {
+        console.log("操作代理返回的数据：", data);
+        Feng.success("操作成功!");
+        ServerInfo.table.refresh();
+    }, function (data) {
+        Feng.error("操作失败!" + data.responseJSON.message + "!");
+    }, true);
+    row = _.omit(row, "createTime", "updateTime");
+    row.action = action;
+    ajax.set(row);
+    ajax.start();
 };
 /**
  * 查询服务器管理列表

@@ -15,6 +15,7 @@
         <result column="ali_status" property="aliStatus" />
         <result column="fire_status" property="fireStatus" />
         <result column="domain_name" property="domainName" />
+        <result column="domain_port" property="domainPort" />
         <result column="fire_zone" property="fireZone" />
         <result column="type" property="type" />
         <result column="create_time" property="createTime" />
@@ -23,7 +24,8 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, port_name,host_id, port, protocol, ali_port, ngrok_port, remark, ali_status, fire_status, domain_name, fire_zone, type, create_time, update_time
+        id, port_name,host_id, port, protocol, ali_port, ngrok_port, remark,
+        ali_status, fire_status, domain_name, domain_port, fire_zone, type, create_time, update_time
     </sql>
 
     <select id="list" resultType="map">
@@ -38,6 +40,7 @@
         zsi.ali_status as aliStatus,
         zsi.fire_status as fireStatus,
         zsi.domain_name as domainName,
+        zsi.domain_port as domainPort,
         zsi.fire_zone as fireZone,
         zsi.type,
         zsi.create_time as createTime,

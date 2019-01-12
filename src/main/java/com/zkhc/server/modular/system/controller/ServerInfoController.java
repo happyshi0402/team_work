@@ -103,12 +103,17 @@ public class ServerInfoController extends BaseController {
         ServerMessage serverMessage = serverMessageService.selectById(serverInfo.getHostId());
 
         Map<String, Object> ngrok_map = new HashMap<>();
-        ngrok_map.put("type", serverInfo.getPortType());
-        ngrok_map.put("port", serverInfo.getPort());
-        ngrok_map.put("task_name", serverInfo.getPortName());
-        ngrok_map.put("client", serverMessage.getServerHost());
-        ngrok_map.put("client_port", serverMessage.getServerPort());
-        ngrok_map.put("client_user", serverMessage.getServerUser());
+        StringBuffer p=new StringBuffer().append(" ").append(serverInfo.getPortType())
+                .append(" ").append(serverInfo.getPort())
+                .append(" ").append(serverInfo.getPortName())
+                .append(" ").append(serverMessage.getServerHost())
+                .append(" ").append(serverInfo.getDomainName())
+                .append(" ").append(serverInfo.getDomainPort())
+                .append(" ").append(serverInfo.getAliPort())
+                .append(" ").append(serverInfo.getNgrokPort())
+                .append(" ").append(serverInfo.getId());
+
+        ngrok_map.put("p", p);
         ngrok_map.put("action", "start");
 
         JSONObject post_data = new JSONObject(ngrok_map);
@@ -131,12 +136,17 @@ public class ServerInfoController extends BaseController {
         ServerMessage serverMessage = serverMessageService.selectById(serverInfo.getHostId());
 
         Map<String, Object> ngrok_map = new HashMap<>();
-        ngrok_map.put("type", serverInfo.getPortType());
-        ngrok_map.put("port", serverInfo.getPort());
-        ngrok_map.put("task_name", serverInfo.getPortName());
-        ngrok_map.put("client", serverMessage.getServerHost());
-        ngrok_map.put("client_port", serverMessage.getServerPort());
-        ngrok_map.put("client_user", serverMessage.getServerUser());
+        StringBuffer p=new StringBuffer().append(" ").append(serverInfo.getPortType())
+                .append(" ").append(serverInfo.getPort())
+                .append(" ").append(serverInfo.getPortName())
+                .append(" ").append(serverMessage.getServerHost())
+                .append(" ").append(serverInfo.getDomainName())
+                .append(" ").append(serverInfo.getDomainPort())
+                .append(" ").append(serverInfo.getAliPort())
+                .append(" ").append(serverInfo.getNgrokPort())
+                .append(" ").append(serverInfo.getId());
+
+        ngrok_map.put("p", p);
         ngrok_map.put("action", "close");
 
         JSONObject post_data = new JSONObject(ngrok_map);
@@ -172,12 +182,17 @@ public class ServerInfoController extends BaseController {
         ServerMessage serverMessage = serverMessageService.selectById(serverInfo.getHostId());
 
         Map<String, Object> ngrok_map = new HashMap<>();
-        ngrok_map.put("type", serverInfo.getPortType());
-        ngrok_map.put("port", serverInfo.getPort());
-        ngrok_map.put("task_name", serverInfo.getPortName());
-        ngrok_map.put("client", serverMessage.getServerHost());
-        ngrok_map.put("client_port", serverMessage.getServerPort());
-        ngrok_map.put("client_user", serverMessage.getServerUser());
+        StringBuffer p=new StringBuffer().append(" ").append(serverInfo.getPortType())
+                .append(" ").append(serverInfo.getPort())
+                .append(" ").append(serverInfo.getPortName())
+                .append(" ").append(serverMessage.getServerHost())
+                .append(" ").append(serverInfo.getDomainName())
+                .append(" ").append(serverInfo.getDomainPort())
+                .append(" ").append(serverInfo.getAliPort())
+                .append(" ").append(serverInfo.getNgrokPort())
+                .append(" ").append(serverInfo.getId());
+
+        ngrok_map.put("p", p);
         ngrok_map.put("action", action);
 
         JSONObject post_data = new JSONObject(ngrok_map);

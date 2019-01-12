@@ -2,7 +2,9 @@ package com.zkhc.server.modular.system.model;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,6 +25,7 @@ public class ServerInfo extends Model<ServerInfo> {
     /**
      * 主键id
      */
+    @TableId(value ="id", type = IdType.INPUT)
     private String id;
     /**
      * 端口名
@@ -70,6 +73,11 @@ public class ServerInfo extends Model<ServerInfo> {
      */
     @TableField("domain_name")
     private String domainName;
+    /**
+     * 域名
+     */
+    @TableField("domain_port")
+    private String domainPort;
     /**
      * 区域 
      */
@@ -217,6 +225,14 @@ public class ServerInfo extends Model<ServerInfo> {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getDomainPort() {
+        return domainPort;
+    }
+
+    public void setDomainPort(String domainPort) {
+        this.domainPort = domainPort;
     }
 
     @Override
