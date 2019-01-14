@@ -168,7 +168,7 @@ public class ServerInfoController extends BaseController {
     }
 
     @RequestMapping(value = "/action")
-    @BussinessLog(value = "开启服务端口", key = "portName", dict = ServerInfoDict.class)
+    @BussinessLog(value = "端口服务操作", key = "portName", dict = ServerInfoDict.class)
     @ResponseBody
     public Object open_port(ServerInfo serverInfo, String action) {
         if(action.equals("start")) {

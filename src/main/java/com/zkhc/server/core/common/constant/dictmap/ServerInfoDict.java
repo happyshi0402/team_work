@@ -17,6 +17,7 @@ public class ServerInfoDict extends AbstractDictMap {
         put("domainName", "域名");
         put("fireZone", "区域");
         put("type", "类型");
+        put("action", "操作");
     }
 
     @Override
