@@ -51,7 +51,6 @@ public class ConstantFactory implements IConstantFactory {
     private UserMapper userMapper = SpringContextHolder.getBean(UserMapper.class);
     private MenuMapper menuMapper = SpringContextHolder.getBean(MenuMapper.class);
     private NoticeMapper noticeMapper = SpringContextHolder.getBean(NoticeMapper.class);
-    private ServerMessageMapper serverMessageMapper = SpringContextHolder.getBean(ServerMessageMapper.class);
     public static IConstantFactory me() {
         return SpringContextHolder.getBean("constantFactory");
     }
@@ -373,14 +372,6 @@ public class ConstantFactory implements IConstantFactory {
     @Override
     public String getType(Integer type) {
         return getDictsByName("类型", type);
-    }
-    /**
-     * 根据服务器id获取服务器地址
-     */
-    @Override
-    public String getHost(Integer id) {
-        ServerMessage serverMessage=serverMessageMapper.selectById(id);
-        return serverMessage.getServerHost();
     }
 
 

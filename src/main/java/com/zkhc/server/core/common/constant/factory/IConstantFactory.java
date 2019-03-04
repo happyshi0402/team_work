@@ -143,8 +143,4 @@ public interface IConstantFactory {
      * 获取类型
      */
     String getType(Integer type);
-    /**
-     * 根据服务器id获取服务器地址
-     */
-    String getHost(Integer id);
 }
