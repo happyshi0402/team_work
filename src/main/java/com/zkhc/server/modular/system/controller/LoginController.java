@@ -80,7 +80,7 @@ public class LoginController extends BaseController {
         String avatar = user.getAvatar();
         model.addAttribute("avatar", avatar);
 
-        return "/index.html";
+        return "/team/teamInfo/teamInfo.html";
     }
 
     /**
