@@ -1,4 +1,4 @@
-package com.zkhc.server.modular.system.model;
+package com.zkhc.server.modular.team.model;
 
 import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;

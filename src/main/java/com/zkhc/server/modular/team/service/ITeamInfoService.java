@@ -1,6 +1,6 @@
 package com.zkhc.server.modular.team.service;
 
-import com.zkhc.server.modular.system.model.TeamInfo;
+import com.zkhc.server.modular.team.model.TeamInfo;
 import com.baomidou.mybatisplus.service.IService;
 
 /**

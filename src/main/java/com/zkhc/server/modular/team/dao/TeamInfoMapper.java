@@ -1,6 +1,6 @@
-package com.zkhc.server.modular.system.dao;
+package com.zkhc.server.modular.team.dao;
 
-import com.zkhc.server.modular.system.model.TeamInfo;
+import com.zkhc.server.modular.team.model.TeamInfo;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**

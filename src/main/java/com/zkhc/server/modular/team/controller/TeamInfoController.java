@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.zkhc.server.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.zkhc.server.modular.system.model.TeamInfo;
+import com.zkhc.server.modular.team.model.TeamInfo;
 import com.zkhc.server.modular.team.service.ITeamInfoService;
 
 /**

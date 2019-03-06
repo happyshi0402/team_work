@@ -9,7 +9,7 @@
         <version>2.0.1.RELEASE</version>
     </parent>
 
-    <groupId>cn.stylefeng.guns</groupId>
+    <groupId>com.zkhc.server</groupId>
     <artifactId>zkhc_ngrok_client_ui</artifactId>
     <version>1.0.0</version>
 
