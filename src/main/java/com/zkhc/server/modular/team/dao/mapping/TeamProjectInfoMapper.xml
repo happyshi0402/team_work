@@ -19,4 +19,9 @@
         id, team_id, name, description, icon, create_time, update_time, status
     </sql>
 
+    <select id="selectProjectByTeam" resultType="map">
+        select <include refid="Base_Column_List"></include>
+        from team_project_info
+        where team_id=#{teamId}
+    </select>
 </mapper>

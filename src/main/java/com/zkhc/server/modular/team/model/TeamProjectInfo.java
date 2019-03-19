@@ -39,7 +39,7 @@ public class TeamProjectInfo extends Model<TeamProjectInfo> {
     /**
      * 图标
      */
-    private Integer icon;
+    private String icon;
     /**
      * 创建时间
      */
@@ -88,11 +88,11 @@ public class TeamProjectInfo extends Model<TeamProjectInfo> {
         this.description = description;
     }
 
-    public Integer getIcon() {
+    public String getIcon() {
         return icon;
     }
 
-    public void setIcon(Integer icon) {
+    public void setIcon(String icon) {
         this.icon = icon;
     }
 

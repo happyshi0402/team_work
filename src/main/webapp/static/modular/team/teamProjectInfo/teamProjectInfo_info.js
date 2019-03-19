@@ -61,12 +61,13 @@ TeamProjectInfoInfoDlg.collectData = function() {
 TeamProjectInfoInfoDlg.addSubmit = function() {
 
     this.clearData();
+    var src=$(".jide").val();
+    var aa=src.substring(20,src.lastIndexOf("/"));
+    $("#icon").val(aa);
     this.collectData();
-
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/teamProjectInfo/add", function(data){
         Feng.success("添加成功!");
-        window.parent.TeamProjectInfo.table.refresh();
         TeamProjectInfoInfoDlg.close();
     },function(data){
         Feng.error("添加失败!" + data.responseJSON.message + "!");
@@ -96,25 +97,28 @@ TeamProjectInfoInfoDlg.editSubmit = function() {
 }
 
 /**
- * 加载团队
+ * 加载项目图标
  */
-TeamProjectInfoInfoDlg.loadTeam=function(){
+TeamProjectInfoInfoDlg.loadProjectImg=function(){
     $.ajax({
         type: "GET",
-        url: "/teamInfo/list",
+        url: "/teamProjectInfo/getProjectImg",
         dataType: "json",
+        async:false,
         success: function (data) {
             $.each(data, function (i) {
-                $("#teamId")
-                    .append("<option value="
-                        + data[i].id + ">"
-                        + data[i].name
-                        + "</option>");
+                $("#projectImg")
+                    .append("<li><img src="
+                    +Feng.ctxPath+'/static/img/project/'+data[i]
+                    +"/></li>");
             });
         }
     });
 }
 
 $(function() {
-    TeamProjectInfoInfoDlg.loadTeam();
+    //TeamProjectInfoInfoDlg.loadProjectImg();
+    /*$(".imgInput").change(function(){
+        $(".img").attr("src",URL.createObjectURL($(this)[0].files[0]));
+    });*/
 });

@@ -17,7 +17,7 @@ TeamInfo.initColumn = function () {
         {title: '团队名称', field: 'name', visible: true,
             formatter: function (value, row, index) {
                 return "<a class='btn btn-warning btn-sm team_name' target='_self' " +
-                    "href='/teamProject/"+row.id+"/'>"+value+"</a>";
+                    "href='/teamProjectInfo/teamProject/"+row.id+"/'>"+value+"</a>";
             },
             align: 'center', valign: 'middle'},
         // {title: '团队介绍', field: 'description', visible: true, align: 'center', valign: 'middle'}

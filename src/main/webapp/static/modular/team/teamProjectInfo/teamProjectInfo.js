@@ -45,11 +45,11 @@ TeamProjectInfo.check = function () {
 TeamProjectInfo.openAddTeamProjectInfo = function () {
     var index = layer.open({
         type: 2,
-        title: '添加项目管理',
-        area: ['800px', '420px'], //宽高
+        title: '添加项目',
+        area: ['500px', '630px'], //宽高
         fix: false, //不固定
         maxmin: true,
-        content: Feng.ctxPath + '/teamProjectInfo/teamProjectInfo_add'
+        content: Feng.ctxPath + '/teamProjectInfo/teamProjectInfo_add/'+teamId
     });
     this.layerIndex = index;
 };
@@ -97,8 +97,9 @@ TeamProjectInfo.search = function () {
 };
 
 $(function () {
-    var defaultColunms = TeamProjectInfo.initColumn();
+    /*var defaultColunms = TeamProjectInfo.initColumn();
     var table = new BSTable(TeamProjectInfo.id, "/teamProjectInfo/list", defaultColunms);
     table.setPaginationType("client");
-    TeamProjectInfo.table = table.init();
+    TeamProjectInfo.table = table.init();*/
+
 });
