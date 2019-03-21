@@ -1,4 +1,16 @@
 @layout("/common/_container.html"){
+<!--1、Jquery组件引用-->
+<script src="${ctxPath}/static/js/jquery.min.js" type="text/javascript"></script>
+<!--2、bootstrap组件引用-->
+<script src="${ctxPath}/static/js/bootstrap.min.js" type="text/javascript"></script>
+<link href="${ctxPath}/static/css/bootstrap.min.css" rel="stylesheet" />
+<!--3、bootstrap table组件以及中文包的引用-->
+<script src="${ctxPath}/static/js/plugins/bootstrap-table/bootstrap-table.min.js" type="text/javascript"></script>
+<script src="${ctxPath}/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js" type="text/javascript"></script>
+<link href="${ctxPath}/static/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+<!--4、页面Js文件的引用-->
+<script src="~/Scripts/Home/Index.js"></script>
+
 <style>
     .init.init-project {
         position: relative;
@@ -58,13 +70,14 @@
                 <h5>项目管理</h5>
             </div>
             <div class="ibox-content">
+                <table id="TeamProjectInfoTable" data-show-header="false"></table>
                 <div class="row row-lg">
-                        <div class="row" id="cont" style="height:800px;">
-                            <div class="init init-page init-project" id="noProject" style="display: none">
-                                <div class="title">没有正在进行的项目</div>
-                                <div class="desc">新建一个项目，和伙伴们一起开始协作吧</div>
-                                <div class="btn btn-primary btn-large" onclick="TeamProjectInfo.openAddTeamProjectInfo()">新建项目</div>
-                            </div>
+                    <div class="row" id="cont">
+                        <div class="init init-page init-project" id="noProject" style="display: none">
+                            <div class="title">没有正在进行的项目</div>
+                            <div class="desc">新建一个项目，和伙伴们一起开始协作吧</div>
+                            <div class="btn btn-primary btn-large" onclick="TeamProjectInfo.openAddTeamProjectInfo()">新建项目</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -76,6 +89,8 @@
 <script>
     var projectList='${len}';
     if(projectList==0){
+        $("#TeamProjectInfoTable").remove();
+        $("#cont").css("height","800px");
         $("#noProject").css("display","block");
     }
     var teamId='${teamId}';

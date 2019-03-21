@@ -13,15 +13,17 @@ var TeamProjectInfo = {
  */
 TeamProjectInfo.initColumn = function () {
     return [
-        {field: 'selectItem', radio: true},
-            {title: '项目编号', field: 'id', visible: true, align: 'center', valign: 'middle'},
-            {title: '团队', field: 'teamId', visible: true, align: 'center', valign: 'middle'},
-            {title: '项目名称', field: 'name', visible: true, align: 'center', valign: 'middle'},
-            {title: '项目描述', field: 'description', visible: true, align: 'center', valign: 'middle'},
+        {field: 'selectItem', radio: true, visible:false},
+            {title: '项目编号', field: 'id', visible: false, align: 'center', valign: 'middle'},
+            {title: '团队', field: 'teamId', visible: false, align: 'center', valign: 'middle'},
+
             {title: '图标', field: 'icon', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建时间', field: 'createTime', visible: true, align: 'center', valign: 'middle'},
-            {title: '更新时间', field: 'updateTime', visible: true, align: 'center', valign: 'middle'},
-            {title: '项目状态（1.正常 2.锁定）', field: 'status', visible: true, align: 'center', valign: 'middle'}
+            {title: '项目名称', field: 'name', visible: true, align: 'center', valign: 'middle'},
+
+            {title: '项目描述', field: 'description', visible: false, align: 'center', valign: 'middle'},
+            {title: '创建时间', field: 'createTime', visible: false, align: 'center', valign: 'middle'},
+            {title: '更新时间', field: 'updateTime', visible: false, align: 'center', valign: 'middle'},
+            {title: '项目状态（1.正常 2.锁定）', field: 'status', visible: false, align: 'center', valign: 'middle'}
     ];
 };
 
@@ -97,9 +99,8 @@ TeamProjectInfo.search = function () {
 };
 
 $(function () {
-    /*var defaultColunms = TeamProjectInfo.initColumn();
+    var defaultColunms = TeamProjectInfo.initColumn();
     var table = new BSTable(TeamProjectInfo.id, "/teamProjectInfo/list", defaultColunms);
     table.setPaginationType("client");
-    TeamProjectInfo.table = table.init();*/
-
+    TeamProjectInfo.table = table.init();
 });
