@@ -9,12 +9,12 @@
         <version>2.0.1.RELEASE</version>
     </parent>
 
-    <groupId>com.zkhc.server</groupId>
-    <artifactId>zkhc_ngrok_client_ui</artifactId>
+    <groupId>com.zkhc</groupId>
+    <artifactId>team_work</artifactId>
     <version>1.0.0</version>
 
-    <name>guns-admin</name>
-    <description>guns 的spring boot版本</description>
+    <name>team_work</name>
+    <description>团队协作</description>
 
     <packaging>jar</packaging>
 
