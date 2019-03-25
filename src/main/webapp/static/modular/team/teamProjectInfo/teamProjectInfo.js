@@ -13,17 +13,21 @@ var TeamProjectInfo = {
  */
 TeamProjectInfo.initColumn = function () {
     return [
-        {field: 'selectItem', radio: true, visible:false},
-            {title: '项目编号', field: 'id', visible: false, align: 'center', valign: 'middle'},
-            {title: '团队', field: 'teamId', visible: false, align: 'center', valign: 'middle'},
+        // {field: 'selectItem', radio: true, visible:false},
+            // {title: '项目编号', field: 'id', visible: false, align: 'center', valign: 'middle'},
+            // {title: '团队', field: 'teamId', visible: false, align: 'center', valign: 'middle'},
 
-            {title: '图标', field: 'icon', visible: true, align: 'center', valign: 'middle'},
-            {title: '项目名称', field: 'name', visible: true, align: 'center', valign: 'middle'},
+            // {title: '图标', field: 'icon', visible: true, align: 'center', valign: 'middle'},
+            {title: '项目名称', field: 'name', visible: true, align: 'left', valign: 'middle',
+                formatter: function (value, row, field) {
+                    var icon = row.icon.length == 0? "document-512.png" : row.icon;
+                    return '<img src="/static/img/project/' + icon +'" class="projectImg" height="25px"/> &nbsp;&nbsp;<span>' + value + '</span>';
+                }},
 
-            {title: '项目描述', field: 'description', visible: false, align: 'center', valign: 'middle'},
-            {title: '创建时间', field: 'createTime', visible: false, align: 'center', valign: 'middle'},
-            {title: '更新时间', field: 'updateTime', visible: false, align: 'center', valign: 'middle'},
-            {title: '项目状态（1.正常 2.锁定）', field: 'status', visible: false, align: 'center', valign: 'middle'}
+            // {title: '项目描述', field: 'description', visible: false, align: 'center', valign: 'middle'},
+            // {title: '创建时间', field: 'createTime', visible: false, align: 'center', valign: 'middle'},
+            // {title: '更新时间', field: 'updateTime', visible: false, align: 'center', valign: 'middle'},
+            // {title: '项目状态（1.正常 2.锁定）', field: 'status', visible: false, align: 'center', valign: 'middle'}
     ];
 };
 
@@ -103,4 +107,25 @@ $(function () {
     var table = new BSTable(TeamProjectInfo.id, "/teamProjectInfo/list", defaultColunms);
     table.setPaginationType("client");
     TeamProjectInfo.table = table.init();
+
+    // 显示卡片格式
+    var tbody = $("#TeamProjectInfoTable tbody");
+    $("#button_card").click(function () {
+        if(tbody.find("h5").length <= 0){
+            tbody.find("span").wrap("<h5></h5>");
+        }
+        tbody.find("tr").attr("align","center").each(function () {
+            $(this).removeClass("col-lg-12").addClass('col-lg-3 col-md-4');
+        });
+    });
+
+    // 显示列表格式
+    $("#button_list").click(function () {
+        if(tbody.find("h5").length > 0){
+            tbody.find("span").unwrap();
+        }
+        tbody.find("tr").attr("align","left").each(function () {
+            $(this).removeClass("col-lg-3 col-md-4").addClass('col-lg-12');
+        });
+    });
 });

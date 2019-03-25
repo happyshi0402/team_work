@@ -70,7 +70,15 @@
                 <h5>项目管理</h5>
             </div>
             <div class="ibox-content">
-                <table id="TeamProjectInfoTable" data-show-header="false"></table>
+                <div id="toolbar" align="right">
+                    <button id="button_card" class="btn btn-secondary">卡片</button>
+                    <button id="button_list" class="btn btn-secondary">列表</button>
+                </div>
+                <table id="TeamProjectInfoTable"
+                       data-toggle="TeamProjectInfoTable"
+                       data-show-header="false"
+                       data-classes="table table-no-bordered table-hover">
+                </table>
                 <div class="row row-lg">
                     <div class="row" id="cont">
                         <div class="init init-page init-project" id="noProject" style="display: none">
