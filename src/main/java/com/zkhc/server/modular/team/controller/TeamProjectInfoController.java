@@ -2,6 +2,7 @@ package com.zkhc.server.modular.team.controller;
 
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import com.zkhc.server.core.util.UUIDUtil;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,6 +47,7 @@ public class TeamProjectInfoController extends BaseController {
      * 跳转到添加项目管理
      */
     @RequestMapping("/teamProjectInfo_add/{teamId}")
+    @ApiOperation("跳转到添加项目")
     public String teamProjectInfoAdd(@PathVariable("teamId") Integer teamId,Model model) {
         model.addAttribute("teamId",teamId);
         return PREFIX + "teamProjectInfo_add.html";
@@ -55,6 +57,7 @@ public class TeamProjectInfoController extends BaseController {
      * 跳转到修改项目管理
      */
     @RequestMapping("/teamProjectInfo_update/{teamProjectInfoId}")
+    @ApiOperation("跳转到修改项目")
     public String teamProjectInfoUpdate(@PathVariable Integer teamProjectInfoId, Model model) {
         TeamProjectInfo teamProjectInfo = teamProjectInfoService.selectById(teamProjectInfoId);
         model.addAttribute("item",teamProjectInfo);
@@ -66,6 +69,7 @@ public class TeamProjectInfoController extends BaseController {
      * 获取项目管理列表
      */
     @RequestMapping(value = "/list")
+    @ApiOperation("项目管理列表")
     @ResponseBody
     public Object list(String condition) {
         return teamProjectInfoService.selectList(null);
@@ -75,6 +79,7 @@ public class TeamProjectInfoController extends BaseController {
      * 获取某团队下所有项目
      */
     @RequestMapping(value = "/teamProject/{teamId}")
+    @ApiOperation("获取某团队下所有项目")
     public Object teamProject(@PathVariable("teamId") Integer teamId,Model model) {
         List<Map<String, Object>> list= teamProjectInfoService.selectProjectByTeam(teamId);
         model.addAttribute("item",list);
@@ -87,6 +92,7 @@ public class TeamProjectInfoController extends BaseController {
      * 新增项目管理
      */
     @RequestMapping(value = "/add")
+    @ApiOperation("新增项目")
     @ResponseBody
     public Object add(TeamProjectInfo teamProjectInfo) {
         teamProjectInfo.setId(UUIDUtil.getUUID());
@@ -99,6 +105,7 @@ public class TeamProjectInfoController extends BaseController {
      * 删除项目管理
      */
     @RequestMapping(value = "/delete")
+    @ApiOperation("删除项目")
     @ResponseBody
     public Object delete(@RequestParam Integer teamProjectInfoId) {
         teamProjectInfoService.deleteById(teamProjectInfoId);
@@ -109,6 +116,7 @@ public class TeamProjectInfoController extends BaseController {
      * 修改项目管理
      */
     @RequestMapping(value = "/update")
+    @ApiOperation("修改项目")
     @ResponseBody
     public Object update(TeamProjectInfo teamProjectInfo) {
         teamProjectInfoService.updateById(teamProjectInfo);
@@ -119,6 +127,7 @@ public class TeamProjectInfoController extends BaseController {
      * 项目管理详情
      */
     @RequestMapping(value = "/detail/{teamProjectInfoId}")
+    @ApiOperation("项目管理详情")
     @ResponseBody
     public Object detail(@PathVariable("teamProjectInfoId") Integer teamProjectInfoId) {
         return teamProjectInfoService.selectById(teamProjectInfoId);
@@ -128,6 +137,7 @@ public class TeamProjectInfoController extends BaseController {
      * 获取项目图标
      */
     @RequestMapping(value = "/getProjectImg")
+    @ApiOperation("获取项目图标")
     @ResponseBody
     public Object getProjectImg() {
         String path=System.getProperty("user.dir");

@@ -1,6 +1,7 @@
 package com.zkhc.server.modular.team.controller;
 
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,6 +40,7 @@ public class TeamInfoController extends BaseController {
      * 跳转到添加团队
      */
     @RequestMapping("/teamInfo_add")
+    @ApiOperation("跳转到添加团队")
     public String teamInfoAdd() {
         return PREFIX + "teamInfo_add.html";
     }
@@ -47,6 +49,7 @@ public class TeamInfoController extends BaseController {
      * 跳转到修改团队
      */
     @RequestMapping("/teamInfo_update/{teamInfoId}")
+    @ApiOperation("跳转到修改团队")
     public String teamInfoUpdate(@PathVariable Integer teamInfoId, Model model) {
         TeamInfo teamInfo = teamInfoService.selectById(teamInfoId);
         model.addAttribute("item",teamInfo);
@@ -58,6 +61,7 @@ public class TeamInfoController extends BaseController {
      * 获取团队列表
      */
     @RequestMapping(value = "/list")
+    @ApiOperation("团队列表")
     @ResponseBody
     public Object list(String condition) {
         return teamInfoService.selectList(null);
@@ -67,6 +71,7 @@ public class TeamInfoController extends BaseController {
      * 新增团队
      */
     @RequestMapping(value = "/add")
+    @ApiOperation("新增团队")
     @ResponseBody
     public Object add(TeamInfo teamInfo) {
         teamInfoService.insert(teamInfo);
@@ -77,6 +82,7 @@ public class TeamInfoController extends BaseController {
      * 删除团队
      */
     @RequestMapping(value = "/delete")
+    @ApiOperation("删除团队")
     @ResponseBody
     public Object delete(@RequestParam Integer teamInfoId) {
         teamInfoService.deleteById(teamInfoId);
@@ -87,6 +93,7 @@ public class TeamInfoController extends BaseController {
      * 修改团队
      */
     @RequestMapping(value = "/update")
+    @ApiOperation("修改团队")
     @ResponseBody
     public Object update(TeamInfo teamInfo) {
         teamInfoService.updateById(teamInfo);
@@ -97,6 +104,7 @@ public class TeamInfoController extends BaseController {
      * 团队详情
      */
     @RequestMapping(value = "/detail/{teamInfoId}")
+    @ApiOperation("团队详情")
     @ResponseBody
     public Object detail(@PathVariable("teamInfoId") Integer teamInfoId) {
         return teamInfoService.selectById(teamInfoId);
